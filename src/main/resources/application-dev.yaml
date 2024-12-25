@@ -1,0 +1,19 @@
+spring:
+
+  config:
+    import: optional:file:.env.${spring.profiles.active}[.properties]
+
+  liquibase:
+    change-log: classpath*:liquibase/db.changelog.yaml
+    enabled: true
+    default-schema: ${LOCAL_POSTGRES_SCHEMA}
+
+  datasource:
+    url: jdbc:postgresql://${LOCAL_POSTGRES_HOST}:${LOCAL_POSTGRES_PORT}/${LOCAL_POSTGRES_DATABASE}
+    username: ${LOCAL_USERNAME}
+    password: ${LOCAL_POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+chapter:
+  textLength: 20000
+  softLength: 1000
