@@ -11,12 +11,13 @@ import java.util.UUID;
 public interface NoteRepository extends JpaRepository<Note, UUID> {
 
     @Query(value = """
-        SELECT * FROM notes n
-        WHERE (n.start_offset BETWEEN :start AND :stop)
-           OR (n.end_offset BETWEEN :start AND :stop)
-           OR (n.start_offset <= :start AND n.end_offset >= :stop)
-        """, nativeQuery = true)
-    List<Note> findWiredNotes(@Param("start") Long start, @Param("stop") Long stop);
-
+            SELECT n.*
+            FROM notes n
+                WHERE n.book_id = :bookId
+                AND ((n.start_offset BETWEEN :start AND :stop)
+                OR (n.end_offset BETWEEN :start AND :stop)
+                OR (n.start_offset <= :start AND n.end_offset >= :stop))
+            """, nativeQuery = true)
+    List<Note> findWiredNotes(@Param("bookId") UUID bookId, @Param("start") Long start, @Param("stop") Long stop);
 
 }

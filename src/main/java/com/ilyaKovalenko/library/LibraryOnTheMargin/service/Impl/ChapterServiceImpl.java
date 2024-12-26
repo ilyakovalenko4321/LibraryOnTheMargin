@@ -27,7 +27,7 @@ public class ChapterServiceImpl implements ChapterService {
                 .orElseThrow(() -> new NoSuchElementException("Book is not found"));
         nextChapter.setEndAt(chapter.getEndAt() + props.getTextLength());
         nextChapter.setInnerText(makeSofter(nextChapter.getInnerText()));
-        nextChapter.setNotes(noteService.getWiredNotes(chapter.getEndAt(), chapter.getEndAt() + props.getTextLength()));
+        nextChapter.setNotes(noteService.getWiredNotes(chapter.getId(), chapter.getEndAt(), chapter.getEndAt() + props.getTextLength()));
         return nextChapter;
     }
 
