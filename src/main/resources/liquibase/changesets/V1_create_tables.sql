@@ -30,8 +30,7 @@ CREATE TABLE IF NOT EXISTS notes
     start_offset INT, -- Номер начального символа фрагмента текста
     end_offset INT,   -- Номер конечного символа фрагмента текста
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_notes_book FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_notes_book FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE NO ACTION ON UPDATE NO ACTION ,
     CONSTRAINT chk_offset_valid CHECK (start_offset <= end_offset) -- Проверка корректности диапазона
 );
 
@@ -44,8 +43,8 @@ CREATE TABLE IF NOT EXISTS users_notes
     permissions VARCHAR(50) DEFAULT 'owner', -- owner, editor, viewer
     added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, note_id),
-    CONSTRAINT fk_users_notes_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT fk_users_notes_notes FOREIGN KEY (note_id) REFERENCES notes(id) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT fk_users_notes_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION ,
+    CONSTRAINT fk_users_notes_notes FOREIGN KEY (note_id) REFERENCES notes(id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 -- Индексы для улучшения производительности

@@ -15,14 +15,13 @@ public class Note {
     @GeneratedValue(generator = "UUID")
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id", nullable = false, foreignKey = @ForeignKey(name = "fk_notes_book"))
-    private Chapter book; // Поле изменено на "book" для согласованности
+    @Column(name = "book_id", nullable = false)
+    private UUID bookId; // Поле изменено на "book" для согласованности
 
     @Column(name = "note_header", nullable = false)
     private String noteHeader;
 
-    @Lob
+    //@Lob
     @Column(name = "note_text", nullable = false)
     private String noteText;
 
@@ -34,7 +33,4 @@ public class Note {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private java.time.LocalDateTime createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private java.time.LocalDateTime updatedAt;
 }

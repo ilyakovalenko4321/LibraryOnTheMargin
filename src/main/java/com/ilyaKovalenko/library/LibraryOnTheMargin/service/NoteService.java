@@ -8,4 +8,6 @@ public interface NoteService {
 
     List<Note> getWiredNotes(Long start, Long end);
 
+    Note createNewNote(Note note);
+
 }

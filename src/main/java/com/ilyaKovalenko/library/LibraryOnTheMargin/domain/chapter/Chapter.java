@@ -24,6 +24,7 @@ public class Chapter {
     @Transient
     private Long endAt;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")  // Вместо mappedBy, мы указываем внешний ключ здесь
     private List<Note> notes;
 }
