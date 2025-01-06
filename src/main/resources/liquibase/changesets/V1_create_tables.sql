@@ -30,6 +30,9 @@ CREATE TABLE IF NOT EXISTS notes
     start_offset INT, -- Номер начального символа фрагмента текста
     end_offset INT,   -- Номер конечного символа фрагмента текста
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    publish BOOL DEFAULT FALSE,
+    branch_name varchar(255) not null,
+    last bool DEFAULT false,
     CONSTRAINT fk_notes_book FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE NO ACTION ON UPDATE NO ACTION ,
     CONSTRAINT chk_offset_valid CHECK (start_offset <= end_offset) -- Проверка корректности диапазона
 );
@@ -40,11 +43,22 @@ CREATE TABLE IF NOT EXISTS users_notes
 (
     user_id UUID NOT NULL,
     note_id UUID NOT NULL,
-    permissions VARCHAR(50) DEFAULT 'owner', -- owner, editor, viewer
-    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, note_id),
     CONSTRAINT fk_users_notes_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION ,
     CONSTRAINT fk_users_notes_notes FOREIGN KEY (note_id) REFERENCES notes(id) ON DELETE CASCADE ON UPDATE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS tokens
+(
+    token varchar(1024) primary key ,
+    expired_time timestamp not null
+);
+
+CREATE TABLE IF NOT EXISTS unconfirmed_users
+(
+    username varchar(255) not null unique,
+    email varchar(1024) not null unique,
+    expiration_date timestamp not null
 );
 
 -- Индексы для улучшения производительности

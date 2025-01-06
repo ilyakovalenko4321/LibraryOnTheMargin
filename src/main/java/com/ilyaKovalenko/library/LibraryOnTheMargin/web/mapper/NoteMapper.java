@@ -1,7 +1,7 @@
 package com.ilyaKovalenko.library.LibraryOnTheMargin.web.mapper;
 
 import com.ilyaKovalenko.library.LibraryOnTheMargin.domain.note.Note;
-import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.NoteDto;
+import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.Note.NoteDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,6 +16,9 @@ public class NoteMapper {
         note.setStartOffset(noteDto.getStartOffset().intValue());  // Преобразуем Long в int
         note.setEndOffset(noteDto.getEndOffset().intValue());  // Преобразуем Long в int
         note.setCreatedAt(java.time.LocalDateTime.now());  // Устанавливаем время создания
+        note.setPublish(noteDto.isPublish());
+        note.setLast(noteDto.isLast());
+        note.setBranchName(noteDto.getBranchName());
         return note;
     }
 
@@ -27,6 +30,9 @@ public class NoteMapper {
         noteDto.setNoteText(note.getNoteText());
         noteDto.setStartOffset((long) note.getStartOffset());  // Преобразуем int в Long
         noteDto.setEndOffset((long) note.getEndOffset());  // Преобразуем int в Long
+        noteDto.setPublish(note.isPublish());
+        noteDto.setBranchName(note.getBranchName());
+        noteDto.setLast(note.isLast());
         return noteDto;
     }
 }

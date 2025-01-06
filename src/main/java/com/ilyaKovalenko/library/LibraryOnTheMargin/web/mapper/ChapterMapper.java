@@ -1,8 +1,8 @@
 package com.ilyaKovalenko.library.LibraryOnTheMargin.web.mapper;
 
 import com.ilyaKovalenko.library.LibraryOnTheMargin.domain.chapter.Chapter;
-import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.ChapterRequest;
-import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.ChapterResponse;
+import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.Chapter.ChapterRequest;
+import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.Chapter.ChapterResponse;
 import org.springframework.stereotype.Component;
 
 @Component

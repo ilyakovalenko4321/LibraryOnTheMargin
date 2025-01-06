@@ -1,4 +1,4 @@
-package com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto;
+package com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.Chapter;
 
 
 import com.ilyaKovalenko.library.LibraryOnTheMargin.domain.note.Note;

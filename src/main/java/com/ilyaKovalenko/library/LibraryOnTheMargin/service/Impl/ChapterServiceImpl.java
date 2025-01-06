@@ -8,8 +8,10 @@ import com.ilyaKovalenko.library.LibraryOnTheMargin.service.NoteService;
 import com.ilyaKovalenko.library.LibraryOnTheMargin.service.Props.ChapterProps;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,12 +24,13 @@ public class ChapterServiceImpl implements ChapterService {
     private final ChapterProps props;
 
     @Override
-    public Chapter getNextPage(Chapter chapter) {
+    @Transactional(readOnly = true)
+    public Chapter getNextPage(Chapter chapter, UUID uuid) {
         Chapter nextChapter = chapterRepository.findNextPage(chapter.getId(), chapter.getEndAt(), chapter.getEndAt() + props.getTextLength())
                 .orElseThrow(() -> new NoSuchElementException("Book is not found"));
         nextChapter.setEndAt(chapter.getEndAt() + props.getTextLength());
         nextChapter.setInnerText(makeSofter(nextChapter.getInnerText()));
-        nextChapter.setNotes(noteService.getWiredNotes(chapter.getId(), chapter.getEndAt(), chapter.getEndAt() + props.getTextLength()));
+        nextChapter.setNotes(noteService.getWiredNotesChapter(chapter.getId(), chapter.getEndAt(), chapter.getEndAt() + props.getTextLength(), uuid));
         return nextChapter;
     }
 
