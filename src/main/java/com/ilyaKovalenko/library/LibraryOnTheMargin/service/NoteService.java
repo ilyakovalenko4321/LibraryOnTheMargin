@@ -7,8 +7,10 @@ import java.util.UUID;
 
 public interface NoteService {
 
-    List<Note> getWiredNotes(UUID id, Long start, Long end);
+    List<Note> getWiredNotesChapter(UUID id, Long start, Long end);
 
     Note createNewNote(Note note);
+
+    List<Note> getWiredNotesUser(UUID id);
 
 }

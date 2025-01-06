@@ -2,8 +2,8 @@ package com.ilyaKovalenko.library.LibraryOnTheMargin.web.controller;
 
 import com.ilyaKovalenko.library.LibraryOnTheMargin.domain.chapter.Chapter;
 import com.ilyaKovalenko.library.LibraryOnTheMargin.service.Impl.ChapterServiceImpl;
-import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.ChapterRequest;
-import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.ChapterResponse;
+import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.Chapter.ChapterRequest;
+import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.Chapter.ChapterResponse;
 import com.ilyaKovalenko.library.LibraryOnTheMargin.web.mapper.ChapterMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

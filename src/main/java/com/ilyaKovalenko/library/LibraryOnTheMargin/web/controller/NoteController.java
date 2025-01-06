@@ -2,14 +2,15 @@ package com.ilyaKovalenko.library.LibraryOnTheMargin.web.controller;
 
 
 import com.ilyaKovalenko.library.LibraryOnTheMargin.domain.note.Note;
+import com.ilyaKovalenko.library.LibraryOnTheMargin.repository.UserRepository;
 import com.ilyaKovalenko.library.LibraryOnTheMargin.service.NoteService;
-import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.NoteDto;
+import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.Note.NoteDto;
 import com.ilyaKovalenko.library.LibraryOnTheMargin.web.mapper.NoteMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/notes")
@@ -25,4 +26,12 @@ public class NoteController {
         return noteService.createNewNote(note);
     }
 
+
+    //ToDo: Сделать проверку на то, твой ли это UUID
+    @GetMapping("/allNotes")
+    public List<Note> getAllNotes(@RequestBody UUID id){
+        return noteService.getWiredNotesUser(id);
+    }
+
+    //ToDo: сделать возможность переходить по note
 }

@@ -5,6 +5,7 @@ import com.ilyaKovalenko.library.LibraryOnTheMargin.repository.NoteRepository;
 import com.ilyaKovalenko.library.LibraryOnTheMargin.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,15 +18,22 @@ public class NoteServiceImpl implements NoteService {
     private final NoteRepository noteRepository;
 
     @Override
-    public List<Note> getWiredNotes(UUID id, Long start, Long end) {
+    @Transactional(readOnly = true)
+    public List<Note> getWiredNotesChapter(UUID id, Long start, Long end) {
         return noteRepository.findWiredNotes(id, start, end);
     }
 
     @Override
+    @Transactional
     public Note createNewNote(Note note) {
         note.setCreatedAt(LocalDateTime.now());
         noteRepository.save(note);
         return note;
+    }
+
+    @Override
+    public List<Note> getWiredNotesUser(UUID id) {
+        return noteRepository.findWiredNotesUser(id);
     }
 
 

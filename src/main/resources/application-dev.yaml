@@ -15,5 +15,12 @@ spring:
     driver-class-name: org.postgresql.Driver
 
 chapter:
-  textLength: 20000
-  softLength: 1000
+  textLength: ${CHAPTER_LENGTH}
+  softLength: ${CHAPTER_SOFTNES}
+
+security:
+  secretKey: ${JWT_SECRET_KEY}
+  validity: ${JWT_VALIDITY}
+
+time:
+  jwtTokenCheck: ${JWT_TOKEN_CHECK}

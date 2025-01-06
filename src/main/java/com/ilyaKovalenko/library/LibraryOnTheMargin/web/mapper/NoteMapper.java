@@ -1,7 +1,7 @@
 package com.ilyaKovalenko.library.LibraryOnTheMargin.web.mapper;
 
 import com.ilyaKovalenko.library.LibraryOnTheMargin.domain.note.Note;
-import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.NoteDto;
+import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.Note.NoteDto;
 import org.springframework.stereotype.Component;
 
 @Component

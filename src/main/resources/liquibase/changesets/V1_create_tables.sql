@@ -47,6 +47,19 @@ CREATE TABLE IF NOT EXISTS users_notes
     CONSTRAINT fk_users_notes_notes FOREIGN KEY (note_id) REFERENCES notes(id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
+CREATE TABLE IF NOT EXISTS tokens
+(
+    token varchar(1024) primary key ,
+    expired_time timestamp not null
+);
+
+CREATE TABLE IF NOT EXISTS unconfirmed_users
+(
+    username varchar(255) not null unique,
+    email varchar(1024) not null unique,
+    expiration_date timestamp not null
+);
+
 -- Индексы для улучшения производительности
 CREATE INDEX idx_users_username ON users(username);
 CREATE INDEX idx_users_email ON users(email);
