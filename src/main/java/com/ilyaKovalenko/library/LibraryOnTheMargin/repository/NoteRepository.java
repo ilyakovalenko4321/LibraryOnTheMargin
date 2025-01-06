@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface NoteRepository extends JpaRepository<Note, UUID> {
@@ -41,5 +42,14 @@ public interface NoteRepository extends JpaRepository<Note, UUID> {
     @Query(value = """
             INSERT INTO users_notes (user_id, note_id) VALUES (:userId, :noteId)""", nativeQuery = true)
     void setToUser(@Param("noteId") UUID noteId, @Param("userId") UUID userId);
+
+    @Query(value = """
+       SELECT n.*
+       FROM notes n
+       JOIN users_notes u_n ON u_n.note_id = n.id
+       ORDER BY n.created_at DESC
+       LIMIT 1 OFFSET 1
+       """, nativeQuery = true)
+    Optional<Note> findPreviousNoteWithUsers();
 
 }

@@ -33,4 +33,13 @@ public class Note {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private java.time.LocalDateTime createdAt;
+
+    @Column(name = "publish")
+    private boolean publish;
+
+    @Column(name = "branch_name")
+    private String branchName;
+
+    @Transient
+    private boolean last;
 }

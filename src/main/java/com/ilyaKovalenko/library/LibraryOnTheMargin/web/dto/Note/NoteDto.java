@@ -12,10 +12,17 @@ public class NoteDto {
     private UUID bookId;
     @NotNull
     private String noteHeader;
+
     private String noteText;
     @NotNull
     private Long startOffset;
     @NotNull
     private Long endOffset;
+
+    private boolean publish;
+
+    private String branchName;
+
+    private boolean last;
 
 }

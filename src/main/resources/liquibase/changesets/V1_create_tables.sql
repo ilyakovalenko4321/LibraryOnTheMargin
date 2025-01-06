@@ -30,6 +30,9 @@ CREATE TABLE IF NOT EXISTS notes
     start_offset INT, -- Номер начального символа фрагмента текста
     end_offset INT,   -- Номер конечного символа фрагмента текста
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    publish BOOL DEFAULT FALSE,
+    branch_name varchar(255) not null,
+    last bool DEFAULT false,
     CONSTRAINT fk_notes_book FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE NO ACTION ON UPDATE NO ACTION ,
     CONSTRAINT chk_offset_valid CHECK (start_offset <= end_offset) -- Проверка корректности диапазона
 );
