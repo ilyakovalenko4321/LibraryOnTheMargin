@@ -56,14 +56,20 @@ public class JwtTokenProvider {
         return token;
     }
 
-    public boolean validateToken(String token){
-        Jws<Claims> claimsJws = Jwts.parser().verifyWith((SecretKey) key).build().parseSignedClaims(token);
-        return claimsJws.getPayload().getExpiration().after(new Date());
-    }
+        public String getUserId(String token){
+            Jws<Claims> claimsJws = Jwts.parser().verifyWith((SecretKey) key).build().parseSignedClaims(token);
+            Claims claims = claimsJws.getPayload();
+            return claims.get("id", String.class);
+        }
 
-    private String getUsername(String token){
-        return Jwts.parser().verifyWith((SecretKey) key).build().parseSignedClaims(token).getPayload().getSubject();
-    }
+        public boolean validateToken(String token){
+            Jws<Claims> claimsJws = Jwts.parser().verifyWith((SecretKey) key).build().parseSignedClaims(token);
+            return claimsJws.getPayload().getExpiration().after(new Date());
+        }
+
+        private String getUsername(String token){
+            return Jwts.parser().verifyWith((SecretKey) key).build().parseSignedClaims(token).getPayload().getSubject();
+        }
 
     public Authentication getAuthentication(String token){
         String username = getUsername(token);

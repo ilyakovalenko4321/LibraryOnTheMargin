@@ -6,7 +6,9 @@ import com.ilyaKovalenko.library.LibraryOnTheMargin.repository.UserRepository;
 import com.ilyaKovalenko.library.LibraryOnTheMargin.service.NoteService;
 import com.ilyaKovalenko.library.LibraryOnTheMargin.web.dto.Note.NoteDto;
 import com.ilyaKovalenko.library.LibraryOnTheMargin.web.mapper.NoteMapper;
+import com.ilyaKovalenko.library.LibraryOnTheMargin.web.security.Context.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,16 +23,16 @@ public class NoteController {
     private final NoteMapper mapper;
 
     @PostMapping("/newNote")
-    public Note createNewNote(@RequestBody NoteDto dto){
+    public Note createNewNote(@RequestBody @Validated NoteDto dto){
         Note note = mapper.toNote(dto);
-        return noteService.createNewNote(note);
+        UUID userId = SecurityUtil.getCurrentUserId();
+        return noteService.createNewNote(note, userId);
     }
 
-
-    //ToDo: Сделать проверку на то, твой ли это UUID
     @GetMapping("/allNotes")
-    public List<Note> getAllNotes(@RequestBody UUID id){
-        return noteService.getWiredNotesUser(id);
+    public List<Note> getAllUserNotes(){
+        UUID userId = SecurityUtil.getCurrentUserId();
+        return noteService.getWiredNotesUser(userId);
     }
 
     //ToDo: сделать возможность переходить по note

@@ -19,15 +19,16 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Note> getWiredNotesChapter(UUID id, Long start, Long end) {
-        return noteRepository.findWiredNotes(id, start, end);
+    public List<Note> getWiredNotesChapter(UUID id, Long start, Long end, UUID uuid) {
+        return noteRepository.findWiredNotes(id, start, end, uuid);
     }
 
     @Override
     @Transactional
-    public Note createNewNote(Note note) {
+    public Note createNewNote(Note note, UUID id) {
         note.setCreatedAt(LocalDateTime.now());
-        noteRepository.save(note);
+        note = noteRepository.save(note);
+        noteRepository.setToUser(note.getId(), id);
         return note;
     }
 

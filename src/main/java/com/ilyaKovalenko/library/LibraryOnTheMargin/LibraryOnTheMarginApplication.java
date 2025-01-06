@@ -10,7 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class LibraryOnTheMarginApplication {
 
 	//Todo: refactor
-	//Todo: Make user to get only his notes
+	//Todo: add publish/unpublish notes
+	//Todo: make notes be structred as tree
 	public static void main(String[] args) {
 		SpringApplication.run(LibraryOnTheMarginApplication.class, args);
 	}

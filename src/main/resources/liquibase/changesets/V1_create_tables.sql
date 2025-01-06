@@ -40,8 +40,6 @@ CREATE TABLE IF NOT EXISTS users_notes
 (
     user_id UUID NOT NULL,
     note_id UUID NOT NULL,
-    permissions VARCHAR(50) DEFAULT 'owner', -- owner, editor, viewer
-    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, note_id),
     CONSTRAINT fk_users_notes_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION ,
     CONSTRAINT fk_users_notes_notes FOREIGN KEY (note_id) REFERENCES notes(id) ON DELETE CASCADE ON UPDATE NO ACTION

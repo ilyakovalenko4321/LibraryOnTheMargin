@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -41,9 +43,12 @@ public class JwtTokenFilter extends GenericFilterBean {
                     throw new AccessDeniedException("You'r token not present in our list");
                 }
                 Authentication authentication = tokenProvider.getAuthentication(bearerToken);
-                if (authentication != null) {
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
+
+                String userId = tokenProvider.getUserId(bearerToken);
+                UsernamePasswordAuthenticationToken auth =
+                        new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), null, authentication.getAuthorities());
+                auth.setDetails(userId);
+                SecurityContextHolder.getContext().setAuthentication(auth);
             }
             filterChain.doFilter(request, response);
         } catch (Exception e) {
